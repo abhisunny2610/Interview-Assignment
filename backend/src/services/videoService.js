@@ -1,5 +1,4 @@
 import { Engagement } from "../models/engagementModel.js";
-import { Comment } from "../models/commentModel.js";
 import { Reaction } from "../models/reactionModel.js";
 import { videoMetadata } from "../models/videoMetaModel.js";
 
@@ -10,7 +9,6 @@ async function ensureSeededEngagement() {
       update: {
         $setOnInsert: {
           likes: Math.floor(Math.random() * 2000) + 25,
-          dislikes: Math.floor(Math.random() * 500) + 8,
           shares: Math.floor(Math.random() * 250) + 4
         }
       },
@@ -23,21 +21,16 @@ async function ensureSeededEngagement() {
 
 export async function getVideosWithEngagement() {
   await ensureSeededEngagement();
-  const [engagementDocs, commentCounts] = await Promise.all([
+  const [engagementDocs] = await Promise.all([
     Engagement.find({}, { _id: 0, videoId: 1, likes: 1, dislikes: 1, shares: 1 }).lean(),
-    Comment.aggregate([
-      { $group: { _id: "$videoId", count: { $sum: 1 } } }
-    ])
+ 
   ]);
   const engagementMap = new Map(engagementDocs.map((doc) => [doc.videoId, doc]));
-  const commentMap = new Map(commentCounts.map((item) => [item._id, item.count]));
 
   return videoMetadata.map((video) => ({
     ...video,
     likes: engagementMap.get(video.id)?.likes ?? 0,
-    dislikes: engagementMap.get(video.id)?.dislikes ?? 0,
     shares: engagementMap.get(video.id)?.shares ?? 0,
-    commentsCount: commentMap.get(video.id) ?? 0
   }));
 }
 

@@ -3,7 +3,6 @@ import { useEffect, useRef } from "react";
 export default function OuterCarousel({ videos, onClick }) {
   const scrollRef = useRef(null);
 
-  // 🔁 Auto scroll
   useEffect(() => {
     const interval = setInterval(() => {
       if (!scrollRef.current) return;
@@ -16,7 +15,6 @@ export default function OuterCarousel({ videos, onClick }) {
         behavior: "smooth",
       });
 
-      // loop back
       if (
         container.scrollLeft + container.clientWidth >=
         container.scrollWidth - 10

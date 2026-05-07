@@ -4,7 +4,6 @@ import {
   fetchVideos,
   reactVideo,
   shareVideo,
-  postComment,
 } from "./api";
 import "./App.css";
 
@@ -12,7 +11,6 @@ function App() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 🎯 Load videos
   useEffect(() => {
     fetchVideos()
       .then(setVideos)
@@ -23,9 +21,7 @@ function App() {
       .finally(() => setLoading(false));
   }, []);
 
-  // ❤️ Like / Dislike
   const handleReact = async (videoId, action) => {
-    // 🔥 Optimistic UI update
     setVideos((prev) =>
       prev.map((v) => {
         if (v.id !== videoId) return v;
@@ -41,7 +37,6 @@ function App() {
     try {
       const res = await reactVideo(videoId, action);
 
-      // ✅ Sync with backend
       setVideos((prev) =>
         prev.map((v) =>
           v.id === videoId
@@ -54,7 +49,6 @@ function App() {
     }
   };
 
-  // 🔗 Share
   const handleShare = async (videoId) => {
     try {
       await shareVideo(videoId);
@@ -69,7 +63,6 @@ function App() {
         alert("Link copied!");
       }
 
-      // optional UI update
       setVideos((prev) =>
         prev.map((v) =>
           v.id === videoId ? { ...v, shares: (v.shares || 0) + 1 } : v
@@ -80,7 +73,6 @@ function App() {
     }
   };
 
-  // 🎮 Actions passed to components
   const actions = {
     onReact: handleReact,
     onShare: handleShare,

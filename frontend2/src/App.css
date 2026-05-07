@@ -7,14 +7,13 @@
   justify-content: center;
 }
 
-/* container */
 .carousel-3d {
+  overflow: visible;
   position: relative;
   width: 800px;
   height: 500px;
 }
 
-/* base card */
 .card {
   position: absolute;
   top: 0;
@@ -28,41 +27,35 @@
   opacity: 0;
 }
 
-/* CENTER (main focus) */
 .card.center {
   transform: translateX(-50%) scale(1);
   z-index: 3;
   opacity: 1;
 }
 
-/* LEFT */
 .card.left {
   transform: translateX(-140%) scale(0.85);
   opacity: 0.6;
   z-index: 2;
 }
 
-/* RIGHT */
 .card.right {
   transform: translateX(40%) scale(0.85);
   opacity: 0.6;
   z-index: 2;
 }
 
-/* hidden others */
 .card.hidden {
   opacity: 0;
   pointer-events: none;
 }
 
-/* video */
 .video {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* actions */
 .action-rail {
   position: absolute;
   right: 10px;
@@ -72,7 +65,6 @@
   gap: 10px;
 }
 
-/* product card */
 .product-card {
   position: absolute;
   bottom: 0;
@@ -81,7 +73,6 @@
   padding: 10px;
 }
 
-/* nav */
 .nav-btn {
   position: absolute;
   top: 50%;
@@ -113,14 +104,12 @@
   margin-bottom: 30px;
 }
 
-/* container */
 .outer-carousel {
   overflow: hidden;
   margin: 0 auto;
   width: 100%;
 }
 
-/* EXACTLY 4 cards visible */
 .outer-container {
   display: flex;
   gap: 20px;
@@ -128,7 +117,6 @@
   scroll-behavior: smooth;
 }
 
-/* each card takes 1/4 width */
 .outer-card {
   flex: 0 0 calc(25% - 15px);
   border: none;
@@ -136,7 +124,6 @@
   cursor: pointer;
 }
 
-/* video wrapper */
 .outer-image-wrapper {
   width: 100%;
   height: 380px;
@@ -145,7 +132,6 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
-/* video */
 .outer-video {
   width: 100%;
   height: 100%;
@@ -158,21 +144,19 @@
   align-items: center;
 }
 
-/* scroll container */
 .outer-container {
   display: flex;
   gap: 20px;
   overflow-x: auto;
   scroll-behavior: smooth;
   padding: 20px;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
 }
 
 .outer-container::-webkit-scrollbar {
   display: none;
 }
 
-/* snap effect 🔥 */
 .outer-container {
   scroll-snap-type: x mandatory;
 }
@@ -181,7 +165,6 @@
   scroll-snap-align: center;
 }
 
-/* card style */
 .outer-image-wrapper {
   width: 220px;
   height: 380px;
@@ -201,7 +184,6 @@
   z-index: 9999;
 }
 
-/* CLOSE BUTTON */
 .close-modal-btn {
   position: fixed;
   top: 20px;
@@ -226,7 +208,6 @@
 }
 
 
-/* action rail */
 .action-rail {
   position: absolute;
   right: 12px;
@@ -237,7 +218,6 @@
   gap: 14px;
 }
 
-/* icon button */
 .icon-btn {
   width: 48px;
   height: 48px;
@@ -261,7 +241,6 @@
   transform: scale(1.08);
 }
 
-/* liked state */
 .like-btn.liked {
   color: red;
 }
@@ -304,4 +283,154 @@
 .progress-bar {
   height: 100%;
   background: white;
+}
+
+
+
+
+.mute-toggle {
+  position: absolute;
+
+  top: 18px;
+  right: 16px;
+
+  width: 44px;
+  height: 44px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(0,0,0,0.45);
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 22px;
+
+  z-index: 50;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(10px);
+
+  transition: 0.25s;
+}
+
+.mute-toggle:hover {
+  transform: scale(1.06);
+}
+
+
+.tap-overlay {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 82px;
+
+  color: white;
+
+  background: rgba(0,0,0,0.08);
+
+  z-index: 30;
+
+  pointer-events: none;
+
+  animation: fadeOut 0.5s ease;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+
+.ig-progress {
+  position: absolute;
+
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background: rgba(255,255,255,0.2);
+
+  z-index: 20;
+}
+
+.ig-progress-fill {
+  height: 100%;
+
+  background: white;
+
+  transition: width 0.1s linear;
+}
+
+
+.action-rail {
+  position: absolute;
+
+  right: 14px;
+  bottom: 120px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 22px;
+
+  z-index: 40;
+}
+
+
+.action-btn {
+  border: none;
+  background: transparent;
+
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 4px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.action-btn svg {
+  font-size: 34px;
+}
+
+.action-btn span {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.action-btn:hover {
+  transform: scale(1.08);
+}
+
+.action-btn:active {
+  transform: scale(0.92);
+}
+
+
+.liked-icon {
+  color: #ff3040;
 }
