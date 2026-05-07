@@ -1,0 +1,307 @@
+.inner-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* container */
+.carousel-3d {
+  position: relative;
+  width: 800px;
+  height: 500px;
+}
+
+/* base card */
+.card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 260px;
+  height: 460px;
+  border-radius: 20px;
+  overflow: hidden;
+  transform: translateX(-50%);
+  transition: all 0.4s ease;
+  opacity: 0;
+}
+
+/* CENTER (main focus) */
+.card.center {
+  transform: translateX(-50%) scale(1);
+  z-index: 3;
+  opacity: 1;
+}
+
+/* LEFT */
+.card.left {
+  transform: translateX(-140%) scale(0.85);
+  opacity: 0.6;
+  z-index: 2;
+}
+
+/* RIGHT */
+.card.right {
+  transform: translateX(40%) scale(0.85);
+  opacity: 0.6;
+  z-index: 2;
+}
+
+/* hidden others */
+.card.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* video */
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* actions */
+.action-rail {
+  position: absolute;
+  right: 10px;
+  bottom: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* product card */
+.product-card {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  padding: 10px;
+}
+
+/* nav */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-btn.left {
+  left: 40px;
+}
+
+.nav-btn.right {
+  right: 40px;
+}
+
+.outer-wrapper {
+  padding: 40px 80px;
+  text-align: center;
+  background: #f5f5f5;
+}
+
+.outer-title {
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+/* container */
+.outer-carousel {
+  overflow: hidden;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* EXACTLY 4 cards visible */
+.outer-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* each card takes 1/4 width */
+.outer-card {
+  flex: 0 0 calc(25% - 15px);
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* video wrapper */
+.outer-image-wrapper {
+  width: 100%;
+  height: 380px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* video */
+.outer-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.outer-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* scroll container */
+.outer-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 20px;
+  scrollbar-width: none; /* Firefox */
+}
+
+.outer-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* snap effect 🔥 */
+.outer-container {
+  scroll-snap-type: x mandatory;
+}
+
+.outer-card {
+  scroll-snap-align: center;
+}
+
+/* card style */
+.outer-image-wrapper {
+  width: 220px;
+  height: 380px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  transition: 0.25s;
+}
+
+.outer-card:hover .outer-image-wrapper {
+  transform: translateY(-6px);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+/* CLOSE BUTTON */
+.close-modal-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  border: 2px solid white;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  font-size: 28px;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 10000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-modal-btn:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+
+/* action rail */
+.action-rail {
+  position: absolute;
+  right: 12px;
+  bottom: 120px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* icon button */
+.icon-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+
+  background: rgba(0,0,0,0.45);
+  color: white;
+
+  font-size: 22px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.25s;
+}
+
+.icon-btn:hover {
+  transform: scale(1.08);
+}
+
+/* liked state */
+.like-btn.liked {
+  color: red;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 42px;
+  height: 42px;
+
+  border: 4px solid rgba(255,255,255,0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+
+  animation: spin 1s linear infinite;
+
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background: rgba(255,255,255,0.2);
+}
+
+.progress-bar {
+  height: 100%;
+  background: white;
+}
