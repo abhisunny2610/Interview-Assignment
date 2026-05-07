@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:4000/api";
+const API_BASE = import.meta.env.VITE_API_BASE || "https://backend-z0cm.onrender.com/api";
 const FALLBACK_BASE = API_BASE.endsWith("/api")
   ? API_BASE.replace(/\/api$/, "")
   : API_BASE;
