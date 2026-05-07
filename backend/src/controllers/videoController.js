@@ -1,0 +1,72 @@
+import { getUserReactions, getVideosWithEngagement, incrementShare, setReaction } from "../services/videoService.js";
+import { videoMetadata } from "../models/videoMetaModel.js";
+
+function isValidVideoId(videoId) {
+  return videoMetadata.some((video) => video.id === videoId);
+}
+
+export async function getVideos(req, res, next) {
+  try {
+    const items = await getVideosWithEngagement();
+    res.json({ total: items.length, items });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function likeVideo(req, res, next) {
+  try {
+    const { videoId, user = "guest", action = "like" } = req.body ?? {};
+    if (!videoId || !isValidVideoId(videoId)) {
+      return res.status(400).json({ message: "Invalid videoId." });
+    }
+    if (!["like", "dislike", "none"].includes(action)) {
+      return res.status(400).json({ message: "Invalid action. Use like, dislike or none." });
+    }
+
+    const actorKey = user || req.ip;
+    const result = await setReaction({ videoId, actorKey, action });
+    return res.json({
+      videoId,
+      likes: result.likes,
+      dislikes: result.dislikes,
+      userReaction: result.userReaction,
+      user,
+      ip: req.ip
+    });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+export async function shareVideo(req, res, next) {
+  try {
+    const { videoId, platform = "copy-link" } = req.body ?? {};
+    if (!videoId || !isValidVideoId(videoId)) {
+      return res.status(400).json({ message: "Invalid videoId." });
+    }
+
+    const result = await incrementShare(videoId);
+    return res.json({
+      videoId,
+      shares: result.shares,
+      platform,
+      ip: req.ip
+    });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+export async function getReactions(req, res, next) {
+  try {
+    const user = req.query?.user || req.body?.user || "guest";
+    const actorKey = user || req.ip;
+    const reactions = await getUserReactions(actorKey);
+    return res.json({ user, ip: req.ip, reactions });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+
